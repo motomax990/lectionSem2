@@ -5,30 +5,66 @@ import time
 
 
 def main():
+    global root, canv, targets
     """
     главня функция
     
     """
-    pass
+    root = tk.Tk()
+    root.geometry('800x600')
+    canv = tk.Canvas(root, bg='white')
+    canv.pack(fill=tk.BOTH, expand=1)
+    targets = []
+    for i in range(3):
+        t = Target()
+        t.new_target()
+        targets.append(t)
+    move_targets()
+    #bullets = [] FIXME: реализавать пули
+    #guns = [] FIXME: реализавать несколько стволов
+    root.mainloop()
 
-
-
+def move_targets():
+    for i in targets:
+        i.move()
+    root.after(50,move_targets)
 class Target:
     """
         Класс мишени
     
     """
     def __init__(self):
-        pass
+        x = self.x = rnd(600, 780)
+        y = self.y = rnd(300, 550)
+        r = self.r = rnd(2, 50)
+        self.vx = rnd(5,11)
+        self.vy = rnd(5,11)
+        colors = ['red','green', 'blue']
+        color = self.color = choice(colors)
+        self.direction = 1
+
     def new_target(self):
         """
             Создаёт новую мишень
         """
+        x = self.x
+        y = self.y
+        r = self.r
+        color = self.color
+        self.target = canv.create_oval(x-r,y-r,x+r,y+r, fill=color)
+        
     def move(self):
         """
             Двигает мишень
         """
-        pass
+        if self.y+self.r > 600:  
+            self.direction = -self.direction
+        if self.y-self.r < 0:
+            self.direction = -self.direction
+        canv.delete(self.target)
+        self.y -= self.vy * self.direction
+        canv.move(self.target,self.x,self.y)
+        self.target = canv.create_oval(self.x-self.r,self.y-self.r,self.x+self.r,self.y+self.r, fill=self.color)
     def set_set(self,x):
         """
             Установить состояние мишени
