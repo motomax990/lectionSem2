@@ -37,8 +37,8 @@ class Target:
         x = self.x = rnd(600, 780)
         y = self.y = rnd(300, 550)
         r = self.r = rnd(2, 50)
-        self.vx = rnd(5,11)
-        self.vy = rnd(5,11)
+        self.vx = rnd(7,22)
+        self.vy = rnd(3,30)
         colors = ['red','green', 'blue']
         color = self.color = choice(colors)
         self.direction = 1
@@ -65,12 +65,12 @@ class Target:
         self.y -= self.vy * self.direction
         canv.move(self.target,self.x,self.y)
         self.target = canv.create_oval(self.x-self.r,self.y-self.r,self.x+self.r,self.y+self.r, fill=self.color)
-    def set_set(self,x):
+    def set_state(self,x):
         """
             Установить состояние мишени
         """
         pass
-    def get_set(self):
+    def get_state(self):
         """
             Возвращает состояние мишени
         """
@@ -81,26 +81,67 @@ class Bullet:
     """
         Класс пули    
     """
-    def __init__(self):
-        pass
-    def new_bullet(self):
-        """
-            Создаёт новую пулю
-        """
-        pass
+    def __init__(self,x=40,y=50):
+        x = self.x = x
+        y = self.y = y
+        r = self.r = 10
+        self.vx = 0
+        self.vy = 0
+        colors = ['red','green', 'blue', 'green','black', 'orange']
+        color = self.color = choice(colors)
+        self.directionX = 1
+        self.directionY = 1
+        self.bullet = canv.create_oval(
+                self.x - self.r,
+                self.y - self.r,
+                self.x + self.r,
+                self.y + self.r,
+                fill=self.color
+        )
+        self.live = 30
+        
+        
+
     def move(self):
         """
             Двигает пулю
         """
+        if self.x+self.r > 800:  
+            self.direction = -self.directionX
+        if self.x-self.r < 0:
+            canv.delete(self.bullet)
+        if self.y+self.r > 600:  
+            self.direction = -self.directionY
+        if self.y-self.r < 0:
+            self.direction = -self.directionY
+        canv.delete(self.target)
+        self.x -= self.vx * self.directionX
+        self.y -= self.vy * self.directionY
+        canv.move(self.target,self.x,self.y)
+        self.bullet = canv.create_oval(self.x-self.r,self.y-self.r,self.x+self.r,self.y+self.r, fill=self.color)
+    def set_state(self,x):
+        self.live = x
+        
+        
+    def get_state(self):
+        return self.live
+        
+        
     def delete_yourself(self):
         """
             Удаляет пулю
         """
+        canv.delete(self.bullet)
     def check_hit(self):
         """
             Проверяет поподание в мишень
         """
-    
+        a = abs(clicX-(objX+(this['size']/2)))
+        b = abs(clicY-(objY+(this['size']/2)))
+        r1 = math.sqrt((a**2)+(b**2))
+        if r1 <= self.r:
+            returnt True
+        return False
     
 class Gun:
     """
