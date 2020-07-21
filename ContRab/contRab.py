@@ -52,6 +52,16 @@ def move_bullets():
 class Target:
     """
         Класс мишени
+        
+        self.x = координата x
+        self.r = радиус мишени
+        self.y = координата y
+        self.vx = скорость по координате x
+        self.vy = скорость по координате y
+        self.color = цвет мишени
+        self.state = статус(жива или нет)
+        self.direction = направление движения  
+    
     
     """
     def __init__(self):
@@ -104,7 +114,16 @@ class Target:
     
 class Bullet:
     """
-        Класс пули    
+        Класс пули 
+        self.x = координата x
+        self.r = радиус мишени
+        self.y = координата y
+        self.vx = скорость по координате x
+        self.vy = скорость по координате y
+        self.color = цвет мишени
+        self.state = статус(жива или нет)
+        self.directionX = направление движения X
+        self.directionY = направление движения Y
     """
     def __init__(self,x=40,y=450):
         self.x = x
