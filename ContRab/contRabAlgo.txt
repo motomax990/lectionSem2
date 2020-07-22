@@ -1,5 +1,55 @@
 Алгоритм работы программы Gun
 
 Функции:
+    main{
+    
+    
+    }
+
+    move_targets{
+    
+    
+    }
+
+    move_bullets{
+    
+    
+    }
+
 
 Классы:
+
+    Класс Target{
+        Методы:
+
+            __init__{
+                
+                
+                
+            }
+            new_target{
+                
+            }
+            move{
+                
+            }
+            set_state{
+                
+            }
+            get_state{
+                
+            }
+    }
+
+    Класс Bullet{
+        Методы:
+
+
+    }
+
+    Класс Gun{
+        Методы:
+
+    }
+
+
